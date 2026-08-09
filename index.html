@@ -633,7 +633,7 @@
     <!-- JAVASCRIPT LOGIC -->
     <script>
     // Atur tanggal target hitung mundur (6 Juni 2026 pukul 08:00:00)
-const targetDate = new Date("Augustus 10, 2026 19:00:00").getTime();
+const targetDate = new Date("August 10, 2026 19:00:00").getTime();
 
 const countdownTimer = setInterval(function() {
     const now = new Date().getTime();
@@ -700,6 +700,31 @@ const countdownTimer = setInterval(function() {
                 });
             }, 500);
         }
+        // 2. Skrip untuk Membaca Nama Tamu dari Link (Mendukung tanda & / %26)
+        document.addEventListener("DOMContentLoaded", function() {
+            const fullUrl = window.location.href;
+            const splitText = fullUrl.split('to=');
+            const nameElement = document.getElementById('guest-name');
+            const ucapanNameInput = document.getElementById('ucapan-name');
+
+            if (splitText.length > 1) {
+                let guestName = splitText[1].split('&')[0]; 
+                
+                guestName = decodeURIComponent(guestName);
+                guestName = guestName.replace(/\+/g, ' ');
+
+                if (nameElement) {
+                    nameElement.innerText = guestName;
+                }
+                if (ucapanNameInput) {
+                    ucapanNameInput.value = guestName;
+                }
+            } else {
+                if (nameElement) {
+                    nameElement.innerText = "Tamu Undangan";
+                }
+            }
+        });
 
         function toggleMusic() {
             if (isMusicPlaying) {
